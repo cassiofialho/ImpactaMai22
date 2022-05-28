@@ -1,0 +1,54 @@
+﻿@using ImpactaMai22.Comentarios
+@{ 
+    var aplicacao = new ComentarioAplicacao();
+}
+<html>
+<head>
+    <title>Comentários</title>
+    <style>
+        label{
+            min-width:100px;
+            display:inline-block;
+        }
+        label[for=comentario]{
+            vertical-align:top;
+        }
+        input, textarea{
+            min-width:50%;
+            min-height:28px;
+            margin-bottom:5px;
+        }
+        input[type=submit]{
+            min-width:300px;
+            margin-left:105px;
+        }
+    </style>
+</head>
+<body>
+    @{
+        if (IsPost)
+        {
+            aplicacao.Inserir(Request["nome"], Request["comentario"]);
+        }
+
+    }
+    <h1>Comentários</h1>
+    <hr />
+    <form method="post">
+        <label for="nome">Nome</label>
+        <input type="text" placeholder="Digite seu Nome" name="nome"/>
+        <br />
+        <label for="comentario">Comentario</label>
+        <textarea rows="10" name="comentario"></textarea>
+        <br />
+        <input type="submit" value="Gravar"/>
+    </form>
+
+    @foreach(var comentario in aplicacao.Selecionar()) 
+    { 
+      <p>@comentario.Data </p>
+      <p> @comentario.Nome</p>
+      <p>@comentario.Comentario</p>
+    }
+</body>
+</html>
